@@ -19,7 +19,9 @@ import lime.app.Application;
 import funkin.objects.*;
 import funkin.data.*;
 import funkin.data.Achievements.AchievementObject;
+#if DISCORD_ALLOWED
 import funkin.backend.Discord.DiscordClient;
+#end
 import funkin.data.options.*;
 import funkin.data.scripts.*;
 import funkin.states.*;
