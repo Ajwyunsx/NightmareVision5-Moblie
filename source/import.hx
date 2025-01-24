@@ -23,7 +23,7 @@ import funkin.backend.Discord;
 import funkin.backend.Discord.DiscordClient;
 #end
 
-
+import mobile.StorageUtil;
 
 #if VIDEOS_ALLOWED
 import hxvlc.flixel.*;
