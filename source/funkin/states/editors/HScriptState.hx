@@ -1,7 +1,9 @@
 package funkin.states.editors;
 
+#if DISCORD_ALLOWED
 import funkin.backend.Discord;
 import funkin.backend.Discord.DiscordClient;
+#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxBasic;
