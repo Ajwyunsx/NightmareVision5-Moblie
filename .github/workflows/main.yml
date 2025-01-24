@@ -57,6 +57,7 @@ jobs:
           haxelib git flxanimate https://github.com/FunkinCrew/flxanimate
           haxelib git linc_luajit https://github.com/MobilePorting/linc_luajit
           haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools
+          haxelib install compiletime
           haxelib install hxcpp-debug-server
           haxelib list
       
