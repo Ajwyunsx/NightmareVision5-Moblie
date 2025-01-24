@@ -49,7 +49,7 @@ jobs:
           haxelib install openfl
           haxelib git flixel https://github.com/MobilePorting/flixel 5.8.0
           haxelib install flixel-ui 2.6.1
-          haxelib install flixel-addons 3.2.4
+          haxelib install flixel-addons 3.2.3
           haxelib install hxvlc 1.5.5
           haxelib install hscript
           haxelib install flixel-tools
