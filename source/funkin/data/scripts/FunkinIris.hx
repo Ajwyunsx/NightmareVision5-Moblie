@@ -48,15 +48,15 @@ class FunkinIris extends FunkinScript
 					var fullClass = trimLine.substring(importStr.length, trimLine.indexOf(';'));
 					var dotIdx = fullClass.lastIndexOf('.');
 					var newString:String = '';
-					var package:Dyname = null;
-					var class;
+					var packages:Dynamic = null;
+					var classs;
 					if (dotIdx != -1) {
 						package = fullClass.substr(0, dotIdx);
-						class = fullClass.substring(dotIdx + 1, fullClass.length);
-						newString = 'addHaxeLibrary("' + class + '", "' + package + '")';
+						classs = fullClass.substring(dotIdx + 1, fullClass.length);
+						newString = 'addHaxeLibrary("' + classs + '", "' + packages + '")';
 					} else {
-						class = fullClass;
-						newString = 'addHaxeLibrary("' + class + '")';
+						classs = fullClass;
+						newString = 'addHaxeLibrary("' + classs + '")';
 					}
 					line = StringTools.replace(line, 'import ' + fullClass, newString);
 				} else if (trimLine.length > 0) {
