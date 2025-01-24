@@ -33,7 +33,38 @@ class FunkinIris extends FunkinScript
 
 	public static function fromString(script:String, ?name:String = "Script", ?additionalVars:Map<String, Any>)
 	{
-		return new FunkinIris(script, name, additionalVars);
+		var imports:String = importConvertCode(script);
+		return new FunkinIris(imports, name, additionalVars);
+	}
+
+	public static function importConvertCode(scriptString) {
+			var scriptLines = scriptString.split('\n');
+			var canOverrideImport:Bool = true;
+			var importStr:String = 'import ';
+			var finalStr = '';
+			for (line in scriptLines) {
+				var trimLine = StringTools.trim(line);
+				if (canOverrideImport && StringTools.startsWith(trimLine, importStr)) {
+					var fullClass = trimLine.substring(importStr.length, trimLine.indexOf(';'));
+					var dotIdx = fullClass.lastIndexOf('.');
+					var newString;
+					var package;
+					var class;
+					if (dotIdx != -1) {
+						package = fullClass.substr(0, dotIdx);
+						class = fullClass.substring(dotIdx + 1, fullClass.length);
+						newString = 'addHaxeLibrary("' + class + '", "' + package + '")';
+					} else {
+						class = fullClass;
+						newString = 'addHaxeLibrary("' + class + '")';
+					}
+					line = StringTools.replace(line, 'import ' + fullClass, newString);
+				} else if (trimLine.length > 0) {
+					canOverrideImport = false;
+				}
+				finalStr += line + '\n';
+			}
+			return finalStr;
 	}
 
 	public static function fromFile(file:String, ?name:String, ?additionalVars:Map<String, Any>)
