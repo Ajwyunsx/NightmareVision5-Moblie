@@ -33,45 +33,14 @@ class FunkinIris extends FunkinScript
 
 	public static function fromString(script:String, ?name:String = "Script", ?additionalVars:Map<String, Any>)
 	{
-		var imports:String = importConvertCode(script);
-		return new FunkinIris(imports, name, additionalVars);
-	}
-
-	public static function importConvertCode(scriptString:String) {
-			var scriptLines = scriptString.split('\n');
-			var canOverrideImport:Bool = true;
-			var importStr:String = 'import ';
-			var finalStr = '';
-			for (line in scriptLines) {
-				var trimLine = StringTools.trim(line);
-				if (canOverrideImport && StringTools.startsWith(trimLine, importStr)) {
-					var fullClass = trimLine.substring(importStr.length, trimLine.indexOf(';'));
-					var dotIdx = fullClass.lastIndexOf('.');
-					var newString:String = '';
-					var packages = null;
-					var classs;
-					if (dotIdx != -1) {
-						packages = fullClass.substr(0, dotIdx);
-						classs = fullClass.substring(dotIdx + 1, fullClass.length);
-						newString = 'addHaxeLibrary("' + classs + '", "' + packages + '")';
-					} else {
-						classs = fullClass;
-						newString = 'addHaxeLibrary("' + classs + '")';
-					}
-					line = StringTools.replace(line, 'import ' + fullClass, newString);
-				} else if (trimLine.length > 0) {
-					canOverrideImport = false;
-				}
-				finalStr += line + '\n';
-			}
-			return finalStr;
+		return new FunkinIris(script, name, additionalVars);
 	}
 
 	public static function fromFile(file:String, ?name:String, ?additionalVars:Map<String, Any>)
 	{
 		if (name == null) name = file;
 
-		return new FunkinIris(File.getContent(importConvertCode(file)), name, additionalVars);
+		return new FunkinIris(File.getContent(file), name, additionalVars);
 	}
 
 	public static function init()
