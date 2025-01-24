@@ -40,7 +40,7 @@ class FunkinIris extends FunkinScript
 	{
 		if (name == null) name = file;
 
-		return new FunkinIris(File.getContent(file)), name, additionalVars);
+		return new FunkinIris(File.getContent(file), name, additionalVars);
 	}
 
 	public static function init()
