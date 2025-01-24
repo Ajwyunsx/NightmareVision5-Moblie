@@ -55,6 +55,7 @@ class Paths
 		'assets/music/freakyMenu.$SOUND_EXT',
 		'assets/shared/music/breakfast.$SOUND_EXT',
 		'assets/shared/music/tea-time.$SOUND_EXT',
+		'assets/shared/mobile/touchpad/bg.png'
 	];
 	/// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory() {
@@ -78,7 +79,9 @@ class Paths
 		// run the garbage collector for good measure lmfao
 		System.gc();
 		#if cpp
-		cpp.vm.Gc.compact();
+		cpp.NativeGc.run(true);
+		#elseif hl
+		hl.Gc.major();
 		#end
 	}
 
@@ -121,6 +124,9 @@ class Paths
 
 	public static function getPath(file:String, ?type:AssetType = TEXT, ?library:Null<String> = null)
 	{
+		if (library == "mobile")
+			return getSharedPath('mobile/$file');
+		
 		if (library != null)
 			return getLibraryPath(file, library);
 
@@ -492,7 +498,7 @@ class Paths
 
 	#if MODS_ALLOWED
 	inline static public function mods(key:String = '') {
-		return 'content/' + key;
+		return #if mobile Sys.getCwd() + #end 'content/' + key;
 	}
 
 	inline static public function modsFont(key:String) {
@@ -554,7 +560,7 @@ class Paths
 				return fileToCheck;
 
 		}
-		return 'content/' + key;
+		return #if mobile Sys.getCwd() + #end 'content/' + key;
 	}
 
 	public static var globalMods:Array<String> = [];
@@ -564,7 +570,7 @@ class Paths
 
 	static public function pushGlobalMods(){ // prob a better way to do this but idc
 		globalMods = [];
-		if (FileSystem.exists("modsList.txt"))
+		if (FileSystem.exists(#if mobile Sys.getCwd() + #end "modsList.txt"))
 		{
 			var list:Array<String> = CoolUtil.listFromString(File.getContent("modsList.txt"));
 			for (i in list)
@@ -606,4 +612,25 @@ class Paths
 		return list;
 	}
 	#end
+
+	public static function readDirectory(directory:String):Array<String>
+	{
+		#if MODS_ALLOWED
+		return FileSystem.readDirectory(directory);
+		#else
+		var dirs:Array<String> = [];
+		for (dir in Assets.list().filter(folder -> folder.startsWith(directory)))
+		{
+			@:privateAccess
+			for (library in lime.utils.Assets.libraries.keys())
+			{
+				if (library != 'default' && Assets.exists('$library:$dir') && (!dirs.contains('$library:$dir') || !dirs.contains(dir)))
+					dirs.push('$library:$dir');
+				else if (Assets.exists(dir) && !dirs.contains(dir))
+					dirs.push(dir);
+			}
+		}
+		return dirs.map(dir -> dir.substr(dir.lastIndexOf("/") + 1));
+		#end
+	}
 }
