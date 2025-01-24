@@ -4,7 +4,9 @@ import flixel.FlxState;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import lime.app.Application;
+#if DISCORD_ALLOWED
 import funkin.backend.Discord.DiscordClient;
+#end
 
 class Init extends FlxState
 {
