@@ -39,7 +39,9 @@ import funkin.states.*;
 import funkin.states.substates.*;
 import funkin.objects.*;
 import funkin.objects.shader.*;
+#if DISCORD_ALLOWED
 import funkin.backend.Discord.DiscordClient;
+#end
 typedef TitleData =
 {
 
