@@ -1,0 +1,19 @@
+{
+	"lineEnds": {
+		"anonFunctionCurly": {
+		  "emptyCurly": "break",
+		  "leftCurly": "after",
+		  "rightCurly": "both"
+		},
+		"leftCurly": "both",
+		"rightCurly": "both"
+	  },
+	"sameLine": {
+		"ifBody": "same",
+		"ifElse": "next",
+		"doWhile": "next",
+		"tryBody": "next",
+		"tryCatch": "next"
+	}
+	
+}

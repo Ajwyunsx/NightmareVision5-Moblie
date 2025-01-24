@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- _________________________ Application Settings _________________________ -->
+
+	<app title="Friday n Fnightfunkin" file="Friday n Fnightfunkin" packageName="com.shadowmario.psychengine" package="com.shadowmario.psychengine" main="Main" version="0.2.7" company="ShadowMario" />
+
+	<!--Switch Export with Unique ApplicationID and Icon-->
+	<set name="APP_ID" value="0x0100f6c013bbc000" />
+
+	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
+	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- stable luas PUT AFTER FIRST LINE WITH APP NAME AND ETC -->
+
+	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
+		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
+	<!-- <app preloader="Preloader" resizable="true" /> -->
+	<app preloader="flixel.system.FlxPreloader" />
+
+	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
+	<set name="SWF_VERSION" value="11.8" />
+
+	<!-- ____________________________ Window Settings ___________________________ -->
+
+	<!--These window settings apply to all targets-->
+	<window width="1280" height="720" fps="0" background="#000000" hardware="true" vsync="false" />
+
+	<!--HTML5-specific-->
+	<window if="html5" resizable="true" />
+
+	<!--Desktop-specific-->
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
+
+	<!--Mobile-specific-->
+	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
+
+	<!--Switch-specific-->
+	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
+
+	<!-- _____________________________ Path Settings ____________________________ -->
+
+	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/release" unless="debug" />
+	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
+
+	<classpath name="source" />
+	
+	<!-- PSYCH ENGINE CUSTOMIZATION -->
+	<define name="MODS_ALLOWED" if="desktop" />
+	<define name="LUA_ALLOWED" if="desktop" />
+	<define name="VIDEOS_ALLOWED" if="cpp" />
+	<define name="DISCORD_ALLOWED" if="cpp"/>
+	
+	<define name="hscriptPos" if="debug" />
+
+	<assets path='assets/embeds' rename='assets' embed="true" />
+	<assets path="assets/fonts" />
+	<assets path="assets/shared"        exclude="*.ogg" if="web"/>
+	<assets path="assets/shared"        exclude="*.mp3" unless="web"/>
+	<assets path="assets/videos"        library="videos"        if="VIDEOS_ALLOWED"/>
+
+	<library name="videos"        preload="true" if="VIDEOS_ALLOWED"/>
+	<library name="songs"         preload="true" />
+
+	<assets path='content' embed='false' if="MODS_ALLOWED"/>
+
+
+	<!-- _______________________________ Libraries ______________________________ -->
+	<lime version="8.1.1"/>
+	<haxelib name="openfl"/>
+
+	<haxelib name="flixel"/>
+	<haxelib name="flixel-addons"/>
+	<haxelib name="flixel-ui"/>
+	<haxelib name="flixel-tools"/>
+	<haxelib name="flxanimate"/>
+	<haxelib name="compiletime"/>
+	
+	<haxedev set='webgl' />
+	<haxelib name="hscript" />
+	<haxelib name="hscript-iris" />
+
+	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
+	<haxelib name="discord_rpc" if="DISCORD_ALLOWED"/>
+	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
+
+	<!-- ______________________________ Haxedefines _____________________________ -->
+
+	<haxeflag name="--macro" value="include('funkin')" />
+	<haxeflag name="-dce no" />
+	
+	<!-- <haxedef name="CRASH_HANDLER"/> -->
+	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
+
+	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
+	<haxedef name="FLX_NO_DEBUG" unless="debug" />
+
+	<!--Enable this for Nape release builds for a serious peformance improvement-->
+	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
+
+	<!-- <haxedef name="FLX_NO_PITCH" /> -->
+	
+	<haxedef name="no-deprecation-warnings"/>
+	<!-- <haxelib name="markdown" /> -->
+	<!-- <haxelib name="HtmlParser" /> -->
+
+	<!--In case you want to use nape with flixel-->
+	<!--<haxelib name="nape-haxe4" />-->
+
+
+
+	<!--Enable the Flixel core recording system-->
+	<!--<haxedef name="FLX_RECORD" />-->
+
+	<!--Disable the right and middle mouse buttons-->
+	<!-- <haxedef name="FLX_NO_MOUSE_ADVANCED" /> -->
+
+	<!--Disable the native cursor API on Flash-->
+	<!--<haxedef name="FLX_NO_NATIVE_CURSOR" />-->
+
+	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
+	<!-- <haxedef name="FLX_NO_MOUSE" if="mobile" /> -->
+	<!-- <haxedef name="FLX_NO_KEYBOARD" if="mobile" /> -->
+	<!-- <haxedef name="FLX_NO_TOUCH" if="desktop" /> -->
+	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
+
+	<!--Disable the Flixel core sound tray-->
+	<!--<haxedef name="FLX_NO_SOUND_TRAY" />-->
+
+	<!--Disable the Flixel sound management code-->
+	<!--<haxedef name="FLX_NO_SOUND_SYSTEM" />-->
+
+	<!--Disable the Flixel core focus lost screen-->
+
+
+	<!-- _________________________________ Custom _______________________________ -->
+
+	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	
+	<icon path="projFiles/icon/icon16.png" size='16'/>
+	<icon path="projFiles/icon/icon32.png" size='32'/>
+	<icon path="projFiles/icon/icon64.png" size='64'/>
+	<icon path="projFiles/icon/iconOG.png" />
+</project>
