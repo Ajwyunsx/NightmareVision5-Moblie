@@ -47,8 +47,8 @@ class FunkinIris extends FunkinScript
 				if (canOverrideImport && StringTools.startsWith(trimLine, importStr)) {
 					var fullClass = trimLine.substring(importStr.length, trimLine.indexOf(';'));
 					var dotIdx = fullClass.lastIndexOf('.');
-					var newString;
-					var package;
+					var newString:String = '';
+					var package:Dyname = null;
 					var class;
 					if (dotIdx != -1) {
 						package = fullClass.substr(0, dotIdx);
