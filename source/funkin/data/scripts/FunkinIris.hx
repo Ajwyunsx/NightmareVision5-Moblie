@@ -51,7 +51,7 @@ class FunkinIris extends FunkinScript
 					var packages:Dynamic = null;
 					var classs;
 					if (dotIdx != -1) {
-						package = fullClass.substr(0, dotIdx);
+						packages = fullClass.substr(0, dotIdx);
 						classs = fullClass.substring(dotIdx + 1, fullClass.length);
 						newString = 'addHaxeLibrary("' + classs + '", "' + packages + '")';
 					} else {
