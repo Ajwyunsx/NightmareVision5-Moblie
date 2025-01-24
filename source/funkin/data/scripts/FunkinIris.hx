@@ -37,7 +37,7 @@ class FunkinIris extends FunkinScript
 		return new FunkinIris(imports, name, additionalVars);
 	}
 
-	function convertCode(scriptString) {
+	public static function importConvertCode(scriptString:String) {
 			var scriptLines = scriptString.split('\n');
 			var canOverrideImport:Bool = true;
 			var importStr:String = 'import ';
