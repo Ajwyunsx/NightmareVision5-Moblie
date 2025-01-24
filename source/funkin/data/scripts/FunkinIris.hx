@@ -48,7 +48,7 @@ class FunkinIris extends FunkinScript
 					var fullClass = trimLine.substring(importStr.length, trimLine.indexOf(';'));
 					var dotIdx = fullClass.lastIndexOf('.');
 					var newString:String = '';
-					var packages:Dynamic = null;
+					var packages = null;
 					var classs;
 					if (dotIdx != -1) {
 						packages = fullClass.substr(0, dotIdx);
